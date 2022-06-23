@@ -132,17 +132,200 @@ if(!numberIsOver0||!numberIsUnder10)
 }
 */
 //ハンズオン10
-long temp1 = 1;
-long temp2 = 1;
+//long temp1 = 1;
+//long temp2 = 1;
 
-Console.WriteLine(1 + ":" + temp1);
-Console.WriteLine(2 + ":" + temp2);
+//Console.WriteLine(1 + ":" + temp1);
+//Console.WriteLine(2 + ":" + temp2);
 
-for (int i = 3; i <= 50; i++)
+//for (int i = 3; i <= 50; i++)
+//{
+//    long next = temp1 + temp2;
+//    Console.WriteLine(i + ":" + next);
+
+//    temp1 = temp2;
+//    temp2 = next;
+//}
+
+//ハンズオン11
+/*
+double Weight = 60.0;
+double Height = 1.7;
+
+double BMI=Weight/(Height*Height);
+Console.WriteLine("BMIは"+BMI+"です。");
+*/
+
+//ハンズオン12
+/*
+Console.WriteLine("体重を入力してください(kg)");
+string userWeight = Console.ReadLine();
+double weight=double.Parse(userWeight);
+Console.WriteLine("体重は" + weight.ToString("F2") + "です。");
+Console.WriteLine("身長を入力してください(m)");
+string userHeight = Console.ReadLine();
+double height = double.Parse(userHeight);
+Console.WriteLine("身長は" + height.ToString("F2") + "です。");
+
+double BMI = weight / (height * height);
+Console.WriteLine("BMIは" + BMI.ToString("F2") + "です。");
+*/
+//try-catchサンプル
+/*
+string input = Console.ReadLine()??"";
+int parsed = 0;
+try
 {
-    long next = temp1 + temp2;
-    Console.WriteLine(i + ":" + next);
-
-    temp1 = temp2;
-    temp2 = next;
+    parsed=int.Parse(input);
 }
+catch(Exception e)
+{
+    Console.WriteLine("バース失敗:"+e.ToString());
+}
+Console.WriteLine("バース結果:"+parsed);
+*/
+//ハンズオン13
+/*
+double weight = 0;
+bool parseSuccess = false;
+Console.WriteLine("体重を入力してください(kg)");
+while (!praseSuccess)
+{
+    string userWeight = Console.ReadLine();
+    try
+    {
+        weight = double.Parse(userWeight);
+        parseSuccess = true;
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine("数値を入力してください。");
+        
+    }
+}
+Console.WriteLine("体重は" + weight.ToString("F2") + "です。");
+
+Console.WriteLine("身長を入力してください(m)");
+double height = 0;
+parseSuccess = false;
+while(!praseSuccess)
+{
+    string userHeight = Console.ReadLine();
+    try
+    {
+        height = double.Parse(userHeight);
+        parseSuccess=true;
+    }
+    catch(Exception e)
+    {
+        Console.WriteLine("数値を入力してください。");
+    }
+}
+Console.WriteLine("身長は" + height.ToString("F2") + "です。");
+
+double BMI = weight / (height * height);
+Console.WriteLine("BMIは" + BMI.ToString("F2") + "です。");
+*/
+//TryParseサンプル
+/*
+string input=Console.ReadLine();
+int parsed;
+
+bool parseSuccess=int.TryParse(input, out parsed);
+if(parseSuccess)
+{
+    Console.WriteLine("パース成功:"+ parsed);
+}
+else
+{
+    Console.WriteLine("パース失敗");
+}
+*/
+//ハンズオン14
+/*
+double weight = 0;
+bool parseSuccess = false;
+Console.WriteLine("体重を入力してください(kg)");
+while (!parseSuccess)
+{
+    string userWeight = Console.ReadLine();
+
+    parseSuccess=double.TryParse(userWeight, out weight);
+    if (!parseSuccess)
+    {
+        Console.WriteLine("数値を入力してください。");
+    }
+}
+Console.WriteLine("体重は" + weight.ToString("F2") + "です。");
+
+Console.WriteLine("身長を入力してください(m)");
+double height = 0;
+parseSuccess = false;
+while (!parseSuccess)
+{
+    string userHeight = Console.ReadLine();
+    parseSuccess = double.TryParse(userHeight, out height);
+    if(!parseSuccess)
+    {
+        Console.WriteLine("数値を入力してください。");
+    }
+}
+Console.WriteLine("身長は" + height.ToString("F2") + "です。");
+
+double BMI = weight / (height * height);
+Console.WriteLine("BMIは" + BMI.ToString("F2") + "です。");
+*/
+//ハンズオン15
+int[] intArray = new int[] { 3, 5, 2, 7, 18, 12,15 };
+//配列の中身を確認
+for(int i=0;i<intArray.Length;i++)
+{
+    Console.WriteLine("インデックス"+i+":"+intArray[i]);
+}
+//配列の最大値を確認
+int max = int.MinValue;
+int min = int.MaxValue;
+long sum = 0;
+for (int i=0; i<intArray.Length;i++)
+{
+    if (max < intArray[i])
+    {
+        max = intArray[i];
+    }
+    if(min > intArray[i])
+    {
+        min=intArray[i];
+    }
+    sum+=intArray[i];
+}
+double mean=(double)sum/(double)intArray.Length;
+
+Console.WriteLine("最大値"+max);
+Console.WriteLine("最小値"+min);
+Console.WriteLine("合計値" + sum);
+Console.WriteLine("平均値"+mean.ToString("F2"));
+
+
+
+//配列の中身を小さい順に並べ替える
+Array.Sort(intArray);
+
+for (int i = 0; i < intArray.Length; i++)
+{
+    Console.WriteLine("インデックス" + i + ":" + intArray[i]);
+}
+
+//中央値
+double median = 0;
+if(intArray.Length%2==1)
+{
+    int targetIndex=(intArray.Length-1)/2;
+    median = intArray[targetIndex];
+}
+else
+{
+    int targetIndex=(intArray.Length/2);
+    int medianSum=intArray[targetIndex]+intArray[targetIndex-1];
+    median = (double)medianSum / 2.0;
+}
+Console.WriteLine("中央値" + median);
